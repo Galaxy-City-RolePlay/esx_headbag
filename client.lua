@@ -14,14 +14,14 @@ local closestPlayer, closestDistance = ESX.Game.GetClosestPlayer()
 local player = GetPlayerPed(-1)
 
 if closestPlayer == -1 or closestDistance > 2.0 then 
-    ESX.ShowNotification('~r~There is no player nearby')
+    ESX.ShowNotification('~r~Es ist kein Spieler in deiner Näheü')
 else
   if not HaveBagOnHead then
     TriggerServerEvent('esx_worek:sendclosest', GetPlayerServerId(closestPlayer))
-    ESX.ShowNotification('~g~You put the head bag on ~w~' .. GetPlayerName(closestPlayer))
+    ESX.ShowNotification('~g~Du hast den Sack an ~w~' .. GetPlayerName(closestPlayer).. " verkauft!")
     TriggerServerEvent('esx_worek:closest')
   else
-    ESX.ShowNotification('~r~This player already have a bag on head')
+    ESX.ShowNotification('~r~Dieser Spieler hat bereits einen Sack über dem Kopf')
   end
 end
 
@@ -51,7 +51,7 @@ end)
 
 RegisterNetEvent('esx_worek:zdejmijc') --This event delete head bag from player head
 AddEventHandler('esx_worek:zdejmijc', function(gracz)
-    ESX.ShowNotification('~g~Someone removed the bag from your head!')
+    ESX.ShowNotification('~g~Jemand hat dir den Sack vom Kopf genommen!')
     DeleteEntity(Worek)
     SetEntityAsNoLongerNeeded(Worek)
     SendNUIMessage({type = 'closeAll'})
@@ -61,8 +61,8 @@ end)
 function OpenBagMenu() --This function is menu function
 
     local elements = {
-          {label = 'Put bag on head', value = 'puton'},
-          {label = 'Remove bag from head', value = 'putoff'},
+          {label = 'Sack über den Kopf ziehen', value = 'puton'},
+          {label = 'Sack vom Kopf entfernen!', value = 'putoff'},
           
         }
   
@@ -91,7 +91,7 @@ function OpenBagMenu() --This function is menu function
                   TriggerServerEvent('esx_worek:zdejmij')
                 end
               else
-                ESX.ShowNotification('~r~There is no player nearby.')
+                ESX.ShowNotification('~r~Es ist kein Spieler in deiner Nähe!')
               end
             end,
       function(data2, menu2)
